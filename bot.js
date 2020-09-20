@@ -47,29 +47,22 @@ bot.onText(/\/currency/, function(msg){
 bot.onText(/\/rofl/, function(msg){
 	const fromId = msg.from.id;
 
-	const requestURL = process.env.URLrofl;
+	const requestURL = 'https://www.anekdot.ru/random/anekdot/';
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
 	request.open('GET', requestURL);
-	
-	function rofl(html)
-	{
-		let rofl = "";
-		for (let el in html){
-			console.log(el);
-		}
-	}
+
 	request.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
+		if (this.status == 200) {
 			const html = request.responseText; // get the string from the response
 			const soup = new JSSoup(html);
-			const tag = soup.findAll('div', "text");
+			const tag = soup.find('div', "text");
 			console.log(tag);
-			//bot.sendMessage(fromId, rofl(tag));
+			bot.sendMessage(fromId, tag);
 		}
 	}
 	request.responseType = 'html';
-	request.send(); 
+	request.send();
 });
 
 bot.onText(/\/news/, function(msg){
@@ -118,9 +111,10 @@ setInterval(function(){
 bot.onText(/\/help/, function(msg){
 	let fromId = msg.from.id;
 	const info = `-----Справочник-----
-/help - помощь
-/remind {command} в {time}- напоминалка на определенное время
-/currency - курс валют`
+				/help - помощь
+				/remind {command} в {time}- напоминалка на определенное время
+				/currency - курс валют
+				/rofl - кидает рофл!10 из 10)))`
 	bot.sendMessage(fromId, info);
 });
 
