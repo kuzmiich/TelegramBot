@@ -48,9 +48,23 @@ bot.onText(/\/rofl/, function(msg){
 	const fromId = msg.from.id;
 	const requestURL = "https://www.anekdot.ru/random/anekdot/";
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-	console.log(XMLHttpRequest);
-	/*const request = new XMLHttpRequest();
-	request.open('GET', requestURL);*/
+	const request = new XMLHttpRequest();
+	request.open('GET', requestURL);
+	request.responseType = 'html';
+	request.send();
+	request.onreadystatechange = () => {
+		if (this.readyState == 4 && this.status == 200) {
+			const html = request.responseText; // get the string from the response
+			const soup = new JSSoup(html);
+			const tag = soup.find('div', "text");
+			console.log(tag);
+			//bot.sendMessage(fromId, rofl(tag));
+		}
+		else
+		{
+			console.log("Error, status code != 200");
+		}
+	}
 
 	/*
 	function rofl(html)
@@ -61,17 +75,8 @@ bot.onText(/\/rofl/, function(msg){
 		}
 	}
 	*/
-	/*request.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			const html = request.responseText; // get the string from the response
-			const soup = new JSSoup(html);
-			const tag = soup.findAll('div', "text");
-			console.log(tag);
-			bot.sendMessage(fromId, rofl(tag));
-		}
-	}*/
-	/*request.responseType = 'html';
-	request.send();*/
+
+
 });
 
 bot.onText(/\/news/, function(msg){
