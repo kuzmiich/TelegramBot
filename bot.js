@@ -46,8 +46,6 @@ bot.onText(/\/currency/, function(msg){
 
 bot.onText(/\/rofl/, function(msg){
 	const fromId = msg.from.id;
-	console.log(1);
-	/*
 	const requestURL = process.env.URLrofl;
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
@@ -71,7 +69,6 @@ bot.onText(/\/rofl/, function(msg){
 	}
 	request.responseType = 'html';
 	request.send();
-	*/
 });
 
 bot.onText(/\/news/, function(msg){
