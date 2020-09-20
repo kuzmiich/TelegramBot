@@ -51,6 +51,7 @@ bot.onText(/\/rofl/, function(msg){
 	const request = new XMLHttpRequest();
 	request.open('GET', requestURL);
 
+	/*
 	function rofl(html)
 	{
 		let rofl = "";
@@ -58,15 +59,16 @@ bot.onText(/\/rofl/, function(msg){
 			console.log(el);
 		}
 	}
-	request.onreadystatechange = function() {
+	*/
+	/*request.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText; // get the string from the response
 			const soup = new JSSoup(html);
 			const tag = soup.findAll('div', "text");
 			console.log(tag);
-			//bot.sendMessage(fromId, rofl(tag));
+			bot.sendMessage(fromId, rofl(tag));
 		}
-	}
+	}*/
 	request.responseType = 'html';
 	request.send();
 });
