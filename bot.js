@@ -66,8 +66,7 @@ bot.onText(/\/rofl/, function(msg){
 			console.log(2);
 			const html = request.responseText; // get the string from the response
 			const soup = new JSSoup(html);
-			const tag = soup.find('div', "text");
-			console.log(soup);
+			const tag = soup.findAll('div', "text");
 			console.log(tag);
 			//bot.sendMessage(fromId, rofl(tag));
 		}
