@@ -128,3 +128,5 @@ bot.onText(/\/help/, function(msg){
 });
 
 bot.on( "ETELEGRAM" ,  ( err )  =>  console . log ( err ) ) ;
+
+bot.on("polling_error", (msg) => console.log(msg));
