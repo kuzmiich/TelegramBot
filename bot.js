@@ -47,10 +47,19 @@ bot.onText(/\/currency/, function(msg){
 bot.onText(/\/rofl/, function(msg){
 	const fromId = msg.from.id;
 	const requestURL = "https://www.anekdot.ru/random/anekdot/";
-	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
 	request.open('GET', requestURL);
+	request.send();
 
+	/*
+	function rofl(html)
+	{
+		let rofl = "";
+		for (let el in html){
+			console.log(el);
+		}
+	}
+	*/
 	request.onreadystatechange = () => {
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText; // get the string from the response
@@ -61,21 +70,9 @@ bot.onText(/\/rofl/, function(msg){
 		}
 		else
 		{
-			console.log("Error, status code != 200");
+			console.log("Dead");
 		}
 	}
-
-	request.responseType = 'html';
-	request.send();
-	/*
-	function rofl(html)
-	{
-		let rofl = "";
-		for (let el in html){
-			console.log(el);
-		}
-	}
-	*/
 });
 
 bot.onText(/\/news/, function(msg){
