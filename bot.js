@@ -50,10 +50,10 @@ bot.onText(/\/rofl/, function(msg){
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
 	request.open('GET', requestURL);
-
+	request.send();
 
 	/*
-	function rofl(html)
+	function rofl(txt)
 	{
 		let rofl = "";
 		for (let el in html){
@@ -63,20 +63,15 @@ bot.onText(/\/rofl/, function(msg){
 	*/
 	request.onreadystatechange = function(){
 		if (request.status == 200) {
-			console.log(2);
 			const html = request.responseText; // get the string from the response
-			const soup = new JSSoup(html);
-			const tag = soup.findAll('div', "text");
-			console.log(tag);
-			//bot.sendMessage(fromId, rofl(tag));
+
+			bot.sendMessage(fromId, html);
 		}
 		else
 		{
 			console.log("Dead");
 		}
 	}
-
-	request.send();
 });
 
 bot.onText(/\/news/, function(msg){
