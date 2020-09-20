@@ -46,10 +46,11 @@ bot.onText(/\/currency/, function(msg){
 
 bot.onText(/\/rofl/, function(msg){
 	const fromId = msg.from.id;
-	const requestURL = process.env.URLrofl;
+	const requestURL = "https://www.anekdot.ru/random/anekdot/";
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-	const request = new XMLHttpRequest();
-	request.open('GET', requestURL);
+	console.log(XMLHttpRequest);
+	/*const request = new XMLHttpRequest();
+	request.open('GET', requestURL);*/
 
 	/*
 	function rofl(html)
@@ -69,8 +70,8 @@ bot.onText(/\/rofl/, function(msg){
 			bot.sendMessage(fromId, rofl(tag));
 		}
 	}*/
-	request.responseType = 'html';
-	request.send();
+	/*request.responseType = 'html';
+	request.send();*/
 });
 
 bot.onText(/\/news/, function(msg){
