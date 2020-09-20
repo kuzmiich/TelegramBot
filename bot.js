@@ -46,23 +46,23 @@ bot.onText(/\/currency/, function(msg){
 
 bot.onText(/\/rofl/, function(msg){
 	const fromId = msg.from.id;
+	console.log(1);
+// 	const requestURL = 'https://www.anekdot.ru/random/anekdot/';
+// 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+// 	const request = new XMLHttpRequest();
+// 	request.open('GET', requestURL);
 
-	const requestURL = 'https://www.anekdot.ru/random/anekdot/';
-	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-	const request = new XMLHttpRequest();
-	request.open('GET', requestURL);
-
-	request.onreadystatechange = function() {
-		if (this.status == 200) {
-			const html = request.responseText; // get the string from the response
-			const soup = new JSSoup(html);
-			const tag = soup.find('div', "text");
-			console.log(tag);
-			bot.sendMessage(fromId, tag);
-		}
-	}
-	request.responseType = 'html';
-	request.send();
+// 	request.onreadystatechange = function() {
+// 		if (this.status == 200) {
+// 			const html = request.responseText; // get the string from the response
+// 			const soup = new JSSoup(html);
+// 			const tag = soup.find('div', "text");
+// 			console.log(tag);
+// 			bot.sendMessage(fromId, tag);
+// 		}
+// 	}
+// 	request.responseType = 'html';
+// 	request.send();
 });
 
 bot.onText(/\/news/, function(msg){
