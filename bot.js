@@ -46,23 +46,30 @@ bot.onText(/\/currency/, function(msg){
 
 bot.onText(/\/rofl/, function(msg){
 	const fromId = msg.from.id;
-	console.log(1);
-// 	const requestURL = 'https://www.anekdot.ru/random/anekdot/';
-// 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-// 	const request = new XMLHttpRequest();
-// 	request.open('GET', requestURL);
 
-// 	request.onreadystatechange = function() {
-// 		if (this.status == 200) {
-// 			const html = request.responseText; // get the string from the response
-// 			const soup = new JSSoup(html);
-// 			const tag = soup.find('div', "text");
-// 			console.log(tag);
-// 			bot.sendMessage(fromId, tag);
-// 		}
-// 	}
-// 	request.responseType = 'html';
-// 	request.send();
+	const requestURL = process.env.URLrofl;
+	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+	const request = new XMLHttpRequest();
+	request.open('GET', requestURL);
+	
+	function rofl(html)
+	{
+		let rofl = "";
+		for (let el in html){
+			console.log(el);
+		}
+	}
+	request.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			const html = request.responseText; // get the string from the response
+			const soup = new JSSoup(html);
+			const tag = soup.findAll('div', "text");
+			console.log(tag);
+			//bot.sendMessage(fromId, rofl(tag));
+		}
+	}
+	request.responseType = 'html';
+	request.send(); 
 });
 
 bot.onText(/\/news/, function(msg){
@@ -114,7 +121,8 @@ bot.onText(/\/help/, function(msg){
 				/help - помощь
 				/remind {command} в {time}- напоминалка на определенное время
 				/currency - курс валют
-				/rofl - кидает рофл!10 из 10)))`
+				/rofl - кидает рофл!10 из 10)))
+				/news - актуальные новости`
 	bot.sendMessage(fromId, info);
 });
 
