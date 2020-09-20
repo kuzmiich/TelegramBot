@@ -61,7 +61,7 @@ bot.onText(/\/rofl/, function(msg){
 		}
 	}
 	*/
-	request.onreadystatechange = () => {
+	request.onreadystatechange = function(){
 		console.log(1);
 		console.log(this.status);
 		console.log(this.readyState);
