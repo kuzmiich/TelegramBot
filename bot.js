@@ -62,15 +62,12 @@ bot.onText(/\/rofl/, function(msg){
 	}
 	*/
 	request.onreadystatechange = function(){
-		console.log(1);
-		console.log(this.status);
-		console.log(this.readyState);
 		if (this.readyState == 4 && this.status == 200) {
 			console.log(2);
 			const html = request.responseText; // get the string from the response
 			const soup = new JSSoup(html);
 			const tag = soup.find('div', "text");
-			console.log(tag);
+			console.log(tag[SoupTag][parent]);
 			//bot.sendMessage(fromId, rofl(tag));
 		}
 		else
