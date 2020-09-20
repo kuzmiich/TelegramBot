@@ -47,6 +47,7 @@ bot.onText(/\/currency/, function(msg){
 bot.onText(/\/rofl/, function(msg){
 	const fromId = msg.from.id;
 	const requestURL = "https://www.anekdot.ru/random/anekdot/";
+	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
 	request.open('GET', requestURL);
 	request.send();
@@ -61,7 +62,9 @@ bot.onText(/\/rofl/, function(msg){
 	}
 	*/
 	request.onreadystatechange = () => {
+		console.log(1);
 		if (this.readyState == 4 && this.status == 200) {
+			console.log(2);
 			const html = request.responseText; // get the string from the response
 			const soup = new JSSoup(html);
 			const tag = soup.find('div', "text");
