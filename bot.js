@@ -50,8 +50,6 @@ bot.onText(/\/rofl/, function(msg){
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
 	request.open('GET', requestURL);
-	request.timeout = 1000;
-	request.send();
 
 	/*
 	function rofl(txt)
@@ -73,6 +71,8 @@ bot.onText(/\/rofl/, function(msg){
 			console.log("Dead");
 		}
 	}
+	request.responseType = "html";
+	request.send();
 });
 
 bot.onText(/\/news/, function(msg){
