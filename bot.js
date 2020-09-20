@@ -50,7 +50,7 @@ bot.onText(/\/rofl/, function(msg){
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
 	request.open('GET', requestURL);
-	request.send();
+
 
 	/*
 	function rofl(html)
@@ -76,6 +76,8 @@ bot.onText(/\/rofl/, function(msg){
 			console.log("Dead");
 		}
 	}
+
+	request.send();
 });
 
 bot.onText(/\/news/, function(msg){
