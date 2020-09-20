@@ -50,8 +50,7 @@ bot.onText(/\/rofl/, function(msg){
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
 	request.open('GET', requestURL);
-	request.responseType = 'html';
-	request.send();
+
 	request.onreadystatechange = () => {
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText; // get the string from the response
@@ -66,6 +65,8 @@ bot.onText(/\/rofl/, function(msg){
 		}
 	}
 
+	request.responseType = 'html';
+	request.send();
 	/*
 	function rofl(html)
 	{
@@ -75,8 +76,6 @@ bot.onText(/\/rofl/, function(msg){
 		}
 	}
 	*/
-
-
 });
 
 bot.onText(/\/news/, function(msg){
