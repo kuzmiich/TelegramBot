@@ -1,4 +1,4 @@
-import {bot} from "../bot";
+import {bot, ch} from "../bot";
 
 bot.onText(/\/rofl/, function(msg){
 	const fromId = msg.from.id;
