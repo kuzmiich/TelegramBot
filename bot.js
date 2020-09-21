@@ -78,7 +78,12 @@ bot.onText(/\/news/, function(msg){
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
-			const links = $('a.entry__link').attr('href', 'favorite').text();
+			const links = [];
+			$('a.entry__link').each((i, elem) => {
+				links.push({
+					link:$(elem).find('a.entry__link').attr('href')
+				});
+			});
 			console.log(links)
 			// bot.sendMessage(fromId, rofl);
 		}
