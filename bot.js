@@ -58,9 +58,9 @@ bot.onText(/\/rofl/, function(msg){
 			const html = request.responseText;
 			const $ = ch.load(html);
 			console.log(1);
-			const rofl = $('div.text');
+			const rofl = $('div.text').text();
 			console.log(rofl);
-			bot.sendMessage(fromId, rofl);
+			//bot.sendMessage(fromId, rofl);
 		}
 		else
 		{
