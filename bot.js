@@ -53,15 +53,13 @@ bot.onText(/\/rofl/, function(msg){
 	request.responseType = "html";
 	request.send();
 
-	request.onreadystatechange = function(err){
+	request.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
 			const rofl = $('div.text').eq(0).text();
 
 			bot.sendMessage(fromId, rofl);
-		} else {
-			console.log("Error, ", err);
 		}
 	}
 });
@@ -76,15 +74,13 @@ bot.onText(/\/news/, function(msg){
 	request.responseType = "html";
 	request.send();
 
-	request.onreadystatechange = function(err){
+	request.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
-			const links = $('a.href');
+			const links = $('a.href').text();
 			console.log(links)
 			// bot.sendMessage(fromId, rofl);
-		} else {
-			console.log("Error, ", err);
 		}
 	}
 	bot.sendMessage(fromId, "Новости");
