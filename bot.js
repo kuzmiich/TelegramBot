@@ -46,24 +46,22 @@ bot.onText(/\/currency/, function(msg){
 
 bot.onText(/\/rofl/, function(msg){
 	const fromId = msg.from.id;
-	const requestURL = "https://www.anekdot.ru/random/anekdot/";
+	const roflURL = "https://www.anekdot.ru/random/anekdot/";
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
-	request.open('GET', requestURL);
+	request.open('GET', roflURL);
 	request.responseType = "html";
 	request.send();
 
-	request.onreadystatechange = function(){
+	request.onreadystatechange = function(err){
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
 			const rofl = $('div.text').eq(0).text();
 
 			bot.sendMessage(fromId, rofl);
-		}
-		else
-		{
-			console.log("Dead");
+		} else {
+			console.log("Error, ", err);
 		}
 	}
 });
@@ -71,6 +69,24 @@ bot.onText(/\/rofl/, function(msg){
 bot.onText(/\/news/, function(msg){
 	const fromId = msg.from.id;
 	URLSite = "https://news.tut.by";
+	
+	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+	const request = new XMLHttpRequest();
+	request.open('GET', URLSite);
+	request.responseType = "html";
+	request.send();
+
+	request.onreadystatechange = function(err){
+		if (this.readyState == 4 && this.status == 200) {
+			const html = request.responseText;
+			const $ = ch.load(html);
+			const links = $('a.href');
+			console.log(links)
+			// bot.sendMessage(fromId, rofl);
+		} else {
+			console.log("Error, ", err);
+		}
+	}
 	bot.sendMessage(fromId, "Новости");
 });
 
