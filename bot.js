@@ -50,6 +50,8 @@ bot.onText(/\/rofl/, function(msg){
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
 	request.open('GET', requestURL);
+	request.responseType = "html";
+	request.send();
 
 	/*
 	function rofl(txt)
@@ -61,18 +63,16 @@ bot.onText(/\/rofl/, function(msg){
 	}
 	*/
 	request.onreadystatechange = function(){
-		if (request.status == 200) {
+		if (request.responseType == 4 && request.status == 200) {
 			const html = request.responseText; // get the string from the response
 
-			bot.sendMessage(fromId, "html - is here!");
 		}
 		else
 		{
 			console.log("Dead");
 		}
 	}
-	request.responseType = "html";
-	request.send();
+	bot.sendMessage(fromId, "html - is here!");
 });
 
 bot.onText(/\/news/, function(msg){
