@@ -56,7 +56,7 @@ bot.onText(/\/rofl/, function(msg){
 	request.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText; // get the string from the response
-			console.log(html.className('text'));
+			console.log(html);
 			bot.sendMessage(fromId, "html - is here!");
 		}
 		else
