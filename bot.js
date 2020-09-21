@@ -1,16 +1,15 @@
 const ch = require('cheerio');
 const fs = require('fs');
-const internetAvailable = require("internet-available");
 const TelegramBot = require('node-telegram-bot-api');
-const Token = "1143128842:AAGDGbRUczDz4dNa68fNGp53yB1YYCUmF94";//process.env.TOKEN
+const Token = process.env.TOKEN;//
 const bot = new TelegramBot(Token, { polling: true });
 
 
-internetAvailable().then(function(){
-console.log("Internet available");
-}).catch(function(){
-console.clear();
-});
+// internetAvailable().then(function(){
+// 	console.log("Internet available");
+// }).catch(function(){
+// 	console.clear();
+// });
 
 bot.onText(/\/currency/, function(msg){
 	const fromId = msg.from.id;
@@ -19,7 +18,9 @@ bot.onText(/\/currency/, function(msg){
 	const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	const request = new XMLHttpRequest();
 	request.open('GET', requestURL);
-	
+
+	request.responseType = 'json';
+	request.send();
 	function currencyList(ArrayObj)
 	{
 		const requiredId = [145, 292, 298];
@@ -40,8 +41,7 @@ bot.onText(/\/currency/, function(msg){
 			bot.sendMessage(fromId, currencyList(ArrayObj));
 		}
 	}
-	request.responseType = 'json';
-	request.send();
+
 });
 
 bot.onText(/\/rofl/, function(msg){
@@ -163,6 +163,6 @@ bot.onText(/\/help/, function(msg){
 	bot.sendMessage(fromId, info);
 });
 
-bot.on( "ETELEGRAM" ,  ( err )  =>  console . log ( err ) ) ;
-
-bot.on("polling_error", (msg) => console.log(msg));
+// bot.on( "ETELEGRAM" ,  ( err )  =>  console . log ( err ) ) ;
+//
+// bot.on("polling_error", (msg) => console.log(msg));
