@@ -78,7 +78,7 @@ bot.onText(/\/news/, function(msg){
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
-			const links = $('a.href').text();
+			const links = $('a.href').title();
 			console.log(links)
 			// bot.sendMessage(fromId, rofl);
 		}
