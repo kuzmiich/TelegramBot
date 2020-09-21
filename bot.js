@@ -58,7 +58,8 @@ bot.onText(/\/rofl/, function(msg){
 			const html = request.responseText;
 			const $ = ch.load(html);
 			console.log(1);
-			const rofl = $('div').find($('.text'));
+			const rofl = $('div.text');
+			console.log(rofl);
 			bot.sendMessage(fromId, rofl);
 		}
 		else
@@ -70,6 +71,7 @@ bot.onText(/\/rofl/, function(msg){
 
 bot.onText(/\/news/, function(msg){
 	const fromId = msg.from.id;
+	URLSite = "https://news.tut.by";
 	bot.sendMessage(fromId, "Новости");
 });
 
