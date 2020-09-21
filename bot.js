@@ -1,4 +1,4 @@
-const JSSoup = require('jssoup').default;
+const ch = require('cheerio');
 const fs = require('fs');
 const internetAvailable = require("internet-available");
 const TelegramBot = require('node-telegram-bot-api');
@@ -53,26 +53,17 @@ bot.onText(/\/rofl/, function(msg){
 	request.responseType = "html";
 	request.send();
 
-	/*
-	function rofl(txt)
-	{
-		let rofl = "";
-		for (let el in html){
-			console.log(el);
-		}
-	}
-	*/
 	request.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText; // get the string from the response
-			console.log(html);
+			console.log(html.className('text'));
+			bot.sendMessage(fromId, "html - is here!");
 		}
 		else
 		{
 			console.log("Dead");
 		}
 	}
-	bot.sendMessage(fromId, "html - is here!");
 });
 
 bot.onText(/\/news/, function(msg){
