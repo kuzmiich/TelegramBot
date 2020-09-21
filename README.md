@@ -1,1 +1,8 @@
-# TelegramBot v 0.8.5
+# TelegramBot v 1.0.0
+List commands:
++help
++remind
++currency
++rofl
++news
+-----------------------------------------------------------------------------------
