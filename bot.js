@@ -65,7 +65,7 @@ bot.onText(/\/rofl/, function(msg){
 	request.onreadystatechange = function(){
 		if (request.responseType == 4 && request.status == 200) {
 			const html = request.responseText; // get the string from the response
-
+			console.log(html);
 		}
 		else
 		{
