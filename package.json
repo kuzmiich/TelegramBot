@@ -15,7 +15,7 @@
   "scripts": {
     "start": "node bot.js"
   },
-  "keywords": [],
+  "keywords": ["news, help, currency, rofl, remind"],
   "author": "Ivan Kuzmich",
   "license": "ISC",
   "description": "Bot with 4 commands"
