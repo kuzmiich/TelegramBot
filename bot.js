@@ -96,7 +96,7 @@ bot.onText(/\/news/, function(msg){
 			const lstLinks = filterArr(links);
 
 			let i = 0;
-			const countNews = 5;
+			const countNews = 10;
 			while(i < countNews)
 			{
 				const query = new XMLHttpRequest();
