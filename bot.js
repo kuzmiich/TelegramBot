@@ -41,7 +41,6 @@ function filterArr(links){
 	}
 	return editLinks;
 }
-
 bot.onText(/\/news/, function(msg){
 	const fromId = msg.from.id;
 	UrlSite = "https://news.tut.by";
@@ -82,6 +81,19 @@ bot.onText(/\/news/, function(msg){
 /*----  /news  ----*/
 
 /*----  currency  ----*/
+function currencyList(ArrayObj)
+{
+	const requiredId = [145, 292, 298];
+	let message = "";
+	for (let i=0;i < ArrayObj.length;i++)
+	{
+		if (requiredId.includes(ArrayObj[i]["Cur_ID"]))
+		{
+			message += `${ArrayObj[i]["Cur_Name"]} ${ArrayObj[i]["Cur_Scale"]} : ${ArrayObj[i]["Cur_OfficialRate"]}\n`;
+		}
+	}
+	return message;
+}
 bot.onText(/\/currency/, function(msg){
 	const fromId = msg.from.id;
 
@@ -90,22 +102,10 @@ bot.onText(/\/currency/, function(msg){
 
 	request.responseType = 'json';
 	request.send();
-	function currencyList(ArrayObj)
-	{
-		const requiredId = [145, 292, 298];
-		let message = "";
-		for (let i=0;i < ArrayObj.length;i++)
-		{
-			if (requiredId.includes(ArrayObj[i]["Cur_ID"]))
-			{
-				message += `${ArrayObj[i]["Cur_Name"]} ${ArrayObj[i]["Cur_Scale"]} : ${ArrayObj[i]["Cur_OfficialRate"]}\n`;
-			}
-		}
-		return message;
-	}
+
 	request.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			let ArrayObj = JSON.parse(request.responseText); // get the string from the response
+			let ArrayObj = JSON.parse(request.responseText); // get array obj
 
 			bot.sendMessage(fromId, currencyList(ArrayObj));
 		}
@@ -115,7 +115,6 @@ bot.onText(/\/currency/, function(msg){
 
 /*----  remind  ----*/
 let notes = [];
-
 bot.onText(/\/remind (.+) в (.+)/, function (msg, match) {
     const userId = msg.from.id;
     const text = match[1];
@@ -125,7 +124,6 @@ bot.onText(/\/remind (.+) в (.+)/, function (msg, match) {
 
     bot.sendMessage(userId, 'Отлично! Я обязательно напомню, если не сдохну :)');
 });
-
 setInterval(function(){
     const timeZone = 3;
     for (let i = 0; i < notes.length; i++) {
