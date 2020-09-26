@@ -1,4 +1,4 @@
-//  Library
+//  Libraries
 const ch = require('cheerio');
 const fs = require('fs');
 
@@ -118,7 +118,7 @@ bot.onText(/\/news/, function(msg){
 	}
 	bot.sendMessage(fromId, "Новости");
 });
-/*----  /remind  ----*/
+/*----  /news  ----*/
 
 /*----  currency  ----*/
 bot.onText(/\/currency/, function(msg){
