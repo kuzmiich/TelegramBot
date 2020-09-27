@@ -66,6 +66,16 @@ setInterval(function(){
 
 
 /*----  news  ----*/
+function filterArr(links){
+	let editLinks = [];
+	let i = 0;
+	while(i < Math.floor(links.length / 2))
+	{
+		editLinks.push(links[i]);
+		i += 2;
+	}
+	return editLinks;
+}
 bot.onText(/\/news/, function(msg){
 	const fromId = msg.from.id;
 	URLSite = "https://news.tut.by";
@@ -74,22 +84,13 @@ bot.onText(/\/news/, function(msg){
 	request.open('GET', URLSite);
 	request.send();
 
+	let tag;
 	request.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
 			const links = $('a.entry__link').map((i, x) => $(x).attr('href')).toArray();
 
-			function filterArr(links){
-				let editLinks = [];
-				let i = 0;
-				while(i < Math.floor(links.length / 2))
-				{
-					editLinks.push(links[i]);
-					i += 2;
-				}
-				return editLinks;
-			}
 			const lstLinks = filterArr(links);
 
 			let i = 0;
@@ -104,7 +105,7 @@ bot.onText(/\/news/, function(msg){
 					if (this.readyState == 4 && this.status == 200) {
 						const html = query.responseText;
 						const $ = ch.load(html);
-						const tag = $('div#article_body').text().replace("\n", " ");
+						tag = $('div#article_body').text().replace("\n", " ");
 					}
 				}
 				i++;
@@ -139,10 +140,10 @@ bot.onText(/\/currency/, function(msg){
 	request.responseType = 'json';
 	request.send();
 
+	let ArrayObj;
 	request.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			let ArrayObj = JSON.parse(request.responseText); // get the string from the response
-
+			ArrayObj = JSON.parse(request.responseText); // get the string from the response
 		}
 	}
 	bot.sendMessage(fromId, currencyList(ArrayObj));
