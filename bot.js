@@ -41,6 +41,21 @@ bot.onText(/\/rofl/, function(msg){
 /*----  /rofl  ----*/
 
 /*----  news  ----*/
+function parseInfo(lstLinks) {
+	const query = new XMLHttpRequest();
+	query.open('GET', lstLinks[i]);
+	query.send();
+
+	query.onreadystatechange = async function() {
+		if (this.readyState === 4 && this.status === 200) {
+			const html = query.responseText;
+			const $ = ch.load(html);
+			const tag = $('div#article_body').text().replace("\n", " ");
+
+			return await tag;
+		}
+	}
+}
 function filterArr(links){
 	let editLinks = [];
 	let i = 0;
@@ -66,24 +81,11 @@ bot.onText(/\/news/, function(msg){
 			const links = $('a.entry__link').map((i, x) => $(x).attr('href')).toArray();
 
 			const lstLinks = filterArr(links);
-
 			let i = 0;
 			const countNews = 10;
 			while(i < countNews)
 			{
-				const query = new XMLHttpRequest();
-				query.open('GET', lstLinks[i]);
-				query.send();
-
-				query.onreadystatechange = function() {
-					if (this.readyState === 4 && this.status === 200) {
-						const html = query.responseText;
-						const $ = ch.load(html);
-						const tag = $('div#article_body').text().replace("\n", " ");
-
-						bot.sendMessage(fromId, tag);
-					}
-				}
+				bot.sendMessage(fromId, parseInfo(lstLinks)).then();
 				i++;
 			}
 		}
