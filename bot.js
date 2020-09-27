@@ -9,7 +9,7 @@ const bot = new TelegramBot(Token, { polling: true });
 
 /*----  help  ----*/
 bot.onText(/\/help/, function(msg){
-	let fromId = msg.from.id;
+	const fromId = msg.from.id;
 	const info = `-----Справочник-----
 				/help - помощь
 				/remind {command} в {time}- напоминалка на определенное время
@@ -28,22 +28,21 @@ bot.onText(/\/rofl/, function(msg){
 	request.open('GET', roflURL);
 	request.send();
 
+	let rofl;
 	request.onreadystatechange = function(){
 		if (this.readyState == 4 && this.status == 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
-			const rofl = $('div.text').eq(0).text();
-
-			bot.sendMessage(fromId, rofl);
+			rofl = $('div.text').eq(0).text();
 		}
 	}
+	bot.sendMessage(fromId, rofl);
 });
 /*----  /rofl  ----*/
 
 
 /*----  remind  ----*/
 let notes = [];
-
 bot.onText(/\/remind (.+) в (.+)/, function (msg, match) {
     const userId = msg.from.id;
     const text = match[1];
@@ -53,7 +52,6 @@ bot.onText(/\/remind (.+) в (.+)/, function (msg, match) {
 
     bot.sendMessage(userId, 'Отлично! Я обязательно напомню, если не сдохну :)');
 });
-
 setInterval(function(){
     const timeZone = 3;
     for (let i = 0; i < notes.length; i++) {
@@ -107,14 +105,13 @@ bot.onText(/\/news/, function(msg){
 						const html = query.responseText;
 						const $ = ch.load(html);
 						const tag = $('div#article_body').text().replace("\n", " ");
-
-						bot.sendMessage(fromId, tag);
 					}
 				}
 				i++;
 			}
 		}
 	}
+	bot.sendMessage(fromId, tag);
 });
 /*----  /news  ----*/
 
@@ -146,9 +143,9 @@ bot.onText(/\/currency/, function(msg){
 		if (this.readyState == 4 && this.status == 200) {
 			let ArrayObj = JSON.parse(request.responseText); // get the string from the response
 
-			bot.sendMessage(fromId, currencyList(ArrayObj));
 		}
 	}
+	bot.sendMessage(fromId, currencyList(ArrayObj));
 });
 /*----  /currency  ----*/
 
