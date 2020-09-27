@@ -41,7 +41,7 @@ bot.onText(/\/rofl/, function(msg){
 /*----  /rofl  ----*/
 
 /*----  news  ----*/
-async function parseInfo(lstLinks, i) {
+async function parseInfo(fromId, lstLinks, i) {
 	const query = new XMLHttpRequest();
 	query.open('GET', lstLinks[i]);
 	query.send();
@@ -52,7 +52,7 @@ async function parseInfo(lstLinks, i) {
 			const $ = ch.load(html);
 			const tag = $('div#article_body').text().replace("\n", " ");
 
-			return tag;
+			bot.sendMessage(fromId, tag);
 		}
 	}
 }
@@ -85,7 +85,8 @@ bot.onText(/\/news/, function(msg){
 			const countNews = 10;
 			while(i < countNews)
 			{
-				bot.sendMessage(fromId, parseInfo(lstLinks, i)).then();
+
+				parseInfo(fromId, lstLinks, i).then(r => console.log("Error"));
 				i++;
 			}
 		}
