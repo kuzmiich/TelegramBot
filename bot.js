@@ -41,18 +41,18 @@ bot.onText(/\/rofl/, function(msg){
 /*----  /rofl  ----*/
 
 /*----  news  ----*/
-function parseInfo(lstLinks, i) {
+async function parseInfo(lstLinks, i) {
 	const query = new XMLHttpRequest();
 	query.open('GET', lstLinks[i]);
 	query.send();
 
-	query.onreadystatechange = async function() {
+	query.onreadystatechange = function() {
 		if (this.readyState === 4 && this.status === 200) {
 			const html = query.responseText;
 			const $ = ch.load(html);
 			const tag = $('div#article_body').text().replace("\n", " ");
 
-			return await tag;
+			return tag;
 		}
 	}
 }
