@@ -41,7 +41,7 @@ bot.onText(/\/rofl/, function(msg){
 /*----  /rofl  ----*/
 
 /*----  news  ----*/
-function parseInfo(lstLinks) {
+function parseInfo(lstLinks, i) {
 	const query = new XMLHttpRequest();
 	query.open('GET', lstLinks[i]);
 	query.send();
@@ -85,7 +85,7 @@ bot.onText(/\/news/, function(msg){
 			const countNews = 10;
 			while(i < countNews)
 			{
-				bot.sendMessage(fromId, parseInfo(lstLinks)).then();
+				bot.sendMessage(fromId, parseInfo(lstLinks, i)).then();
 				i++;
 			}
 		}
