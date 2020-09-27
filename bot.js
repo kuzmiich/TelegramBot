@@ -44,7 +44,7 @@ bot.onText(/\/rofl/, function(msg){
 async function parseInfo(fromId, lstLinks, i) {
 	const query = new XMLHttpRequest();
 	query.open('GET', lstLinks[i]);
-	query.send();
+	await query.send();
 
 	query.onreadystatechange = function() {
 		if (this.readyState === 4 && this.status === 200) {
@@ -85,7 +85,6 @@ bot.onText(/\/news/, function(msg){
 			const countNews = 10;
 			while(i < countNews)
 			{
-
 				parseInfo(fromId, lstLinks, i).then(r => console.log("Error"));
 				i++;
 			}
