@@ -28,14 +28,14 @@ bot.onText(/\/rofl/, function(msg){
 	request.open('GET', roflURL);
 	request.send();
 
-	let rofl = "";
 	request.onreadystatechange = function(){
 		if (this.readyState === 4 && this.status === 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
 			rofl = $('div.text').eq(0).text();
+
+			bot.sendMessage(fromId, rofl);
 		}
-		bot.sendMessage(fromId, rofl);
 	}
 });
 /*----  /rofl  ----*/
@@ -75,15 +75,15 @@ bot.onText(/\/news/, function(msg){
 				query.open('GET', lstLinks[i]);
 				query.send();
 
-				let tag = "";
 				query.onreadystatechange = function() {
 					if (this.readyState === 4 && this.status === 200) {
 						const html = query.responseText;
 						const $ = ch.load(html);
-						tag = $('div#article_body').text().replace("\n", " ");
+						const tag = $('div#article_body').text().replace("\n", " ");
+
+						bot.sendMessage(fromId, tag);
 					}
 				}
-				bot.sendMessage(fromId, tag);
 				i++;
 			}
 		}
@@ -116,15 +116,17 @@ bot.onText(/\/currency/, function(msg){
 	request.responseType = 'json';
 	request.send();
 
-	let ArrayObj = [];
 	request.onreadystatechange = function() {
 		if (this.readyState === 4 && this.status === 200) {
-			ArrayObj = JSON.parse(request.responseText); // get the string from the response
+			const ArrayObj = JSON.parse(request.responseText); // get the string from the response
+
+			bot.sendMessage(fromId, ArrayObj);
 		}
-		bot.sendMessage(fromId, ArrayObj);
 	}
 });
 /*----  /currency  ----*/
+
+
 
 /*----  remind  ----*/
 let notes = [];
