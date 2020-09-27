@@ -32,7 +32,7 @@ bot.onText(/\/rofl/, function(msg){
 		if (this.readyState === 4 && this.status === 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
-			rofl = $('div.text').eq(0).text();
+			const rofl = $('div.text').eq(0).text();
 
 			bot.sendMessage(fromId, rofl);
 		}
@@ -120,7 +120,7 @@ bot.onText(/\/currency/, function(msg){
 		if (this.readyState === 4 && this.status === 200) {
 			const ArrayObj = JSON.parse(request.responseText); // get the string from the response
 
-			bot.sendMessage(fromId, ArrayObj);
+			bot.sendMessage(fromId, currencyList(ArrayObj));
 		}
 	}
 });
