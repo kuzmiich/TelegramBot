@@ -85,7 +85,7 @@ bot.onText(/\/news/, function(msg){
 			const countNews = 10;
 			while(i < countNews)
 			{
-				parseInfo(fromId, lstLinks, i).then(r => console.log("Error"));
+				parseInfo(fromId, lstLinks, i);
 				i++;
 			}
 		}
