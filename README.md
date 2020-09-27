@@ -1,4 +1,4 @@
-# TelegramBot v 1.2.0
+# TelegramBot v 1.2.4
 List commands:
 +help
 +remind
