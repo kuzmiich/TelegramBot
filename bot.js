@@ -75,18 +75,19 @@ bot.onText(/\/news/, function(msg){
 				query.open('GET', lstLinks[i]);
 				query.send();
 
+				let tag = "";
 				query.onreadystatechange = function() {
 					if (this.readyState === 4 && this.status === 200) {
 						const html = query.responseText;
 						const $ = ch.load(html);
-						var tag = $('div#article_body').text().replace("\n", " ");
+						tag = $('div#article_body').text().replace("\n", " ");
 					}
 				}
+				bot.sendMessage(fromId, tag);
 				i++;
 			}
 		}
 	}
-	bot.sendMessage(fromId, tag);
 });
 /*----  /news  ----*/
 
@@ -115,8 +116,8 @@ bot.onText(/\/currency/, function(msg){
 	request.responseType = 'json';
 	request.send();
 
+	let ArrayObj = [];
 	request.onreadystatechange = function() {
-		let ArrayObj = "";
 		if (this.readyState === 4 && this.status === 200) {
 			ArrayObj = JSON.parse(request.responseText); // get the string from the response
 		}
