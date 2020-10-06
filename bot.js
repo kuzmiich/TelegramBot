@@ -156,7 +156,6 @@ setInterval(function(){
 /*----  message  ----*/
 bot.on('message', function (msg) {
 	const chatId = msg.chat.id; // Берем ID чата (не отправителя)
-	const path = 'img/';
 	let lstImg = [];
 
 	fs.readdirSync(path).forEach(file => {
