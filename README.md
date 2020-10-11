@@ -1,8 +1,8 @@
-# TelegramBot v 1.2.0
-List commands:
-+help
-+remind
-+currency
-+rofl
-+news
+# TelegramBot v 1.2.4
+List commands:<br>
++help<br>
++remind<br>
++currency<br>
++rofl<br>
++news<br>
 -----------------------------------------------------------------------------------
