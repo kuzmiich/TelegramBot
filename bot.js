@@ -85,7 +85,7 @@ bot.onText(/\/news/, async function(msg){
 			const countNews = 10;
 			while(i < countNews)
 			{
-				await parseInfo(fromId, lstLinks, i).catch(err => throw err);
+				await parseInfo(fromId, lstLinks, i).catch(err => {throw err});
 				i++;
 			}
 		}
