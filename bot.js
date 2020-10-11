@@ -8,7 +8,7 @@ const Token = process.env.TOKEN;//
 const bot = new TelegramBot(Token, { polling: true });
 
 /*----  help  ----*/
-bot.onText(/\/help/, function(msg){
+bot.onText(/\/help/, async function(msg){
 	const fromId = msg.from.id;
 	const info = `-----Справочник-----
 				/help - помощь
@@ -16,43 +16,43 @@ bot.onText(/\/help/, function(msg){
 				/currency - курс валют
 				/rofl - кидает рофл!10 из 10)))
 				/news - актуальные новости`
-	bot.sendMessage(fromId, info);
+	await bot.sendMessage(fromId, info);
 });
 /*----  /help  ----*/
 
 /*----  rofl  ----*/
-bot.onText(/\/rofl/, function(msg){
+bot.onText(/\/rofl/, async function(msg){
 	const fromId = msg.from.id;
 	const roflURL = "https://www.anekdot.ru/random/anekdot/";
 	const request = new XMLHttpRequest();
 	request.open('GET', roflURL);
-	request.send();
+	await request.send();
 
-	request.onreadystatechange = function(){
+	request.onreadystatechange = async function(){
 		if (this.readyState === 4 && this.status === 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
 			const rofl = $('div.text').eq(0).text();
 
-			bot.sendMessage(fromId, rofl);
+			await bot.sendMessage(fromId, rofl);
 		}
 	}
 });
 /*----  /rofl  ----*/
 
 /*----  news  ----*/
-function parseInfo(fromId, lstLinks, i) {
+async function parseInfo(fromId, lstLinks, i) {
 	const query = new XMLHttpRequest();
 	query.open('GET', lstLinks[i]);
-	query.send();
+	await query.send();
 
-	query.onreadystatechange = function() {
+	query.onreadystatechange = async function() {
 		if (this.readyState === 4 && this.status === 200) {
 			const html = query.responseText;
 			const $ = ch.load(html);
 			const tag = $('div#article_body').text().replace("\n", " ");
 
-			bot.sendMessage(fromId, tag);
+			await bot.sendMessage(fromId, tag);
 		}
 	}
 }
@@ -66,15 +66,15 @@ function filterArr(links){
 	}
 	return editLinks;
 }
-bot.onText(/\/news/, function(msg){
+bot.onText(/\/news/, async function(msg){
 	const fromId = msg.from.id;
 	URLSite = "https://news.tut.by";
 
 	const request = new XMLHttpRequest();
 	request.open('GET', URLSite);
-	request.send();
+	await request.send();
 
-	request.onreadystatechange = function(){
+	request.onreadystatechange = async function(){
 		if (this.readyState === 4 && this.status === 200) {
 			const html = request.responseText;
 			const $ = ch.load(html);
@@ -85,7 +85,7 @@ bot.onText(/\/news/, function(msg){
 			const countNews = 10;
 			while(i < countNews)
 			{
-				parseInfo(fromId, lstLinks, i);
+				await parseInfo(fromId, lstLinks, i);
 				i++;
 			}
 		}
@@ -108,7 +108,7 @@ function currencyList(ArrayObj)
 	return message;
 }
 
-bot.onText(/\/currency/, function(msg){
+bot.onText(/\/currency/, async function(msg){
 	const fromId = msg.from.id;
 
 	const currencyURL = "https://www.nbrb.by/api/exrates/rates?periodicity=0";
@@ -116,13 +116,13 @@ bot.onText(/\/currency/, function(msg){
 	request.open('GET', currencyURL);
 
 	request.responseType = 'json';
-	request.send();
+	await request.send();
 
-	request.onreadystatechange = function() {
+	request.onreadystatechange = async function() {
 		if (this.readyState === 4 && this.status === 200) {
 			const ArrayObj = JSON.parse(request.responseText); // get the string from the response
 
-			bot.sendMessage(fromId, currencyList(ArrayObj));
+			await bot.sendMessage(fromId, currencyList(ArrayObj));
 		}
 	}
 });
@@ -132,21 +132,21 @@ bot.onText(/\/currency/, function(msg){
 
 /*----  remind  ----*/
 let notes = [];
-bot.onText(/\/remind (.+) в (.+)/, function (msg, match) {
+bot.onText(/\/remind (.+) в (.+)/, async function (msg, match) {
     const userId = msg.from.id;
     const text = match[1];
     const time = match[2];
 
     notes.push({ 'uid': userId, 'time': time, 'text': text });
 
-    bot.sendMessage(userId, 'Отлично! Я обязательно напомню, если не сдохну :)');
+    await bot.sendMessage(userId, 'Отлично! Я обязательно напомню, если не сдохну :)');
 });
-setInterval(function(){
+setInterval(async function(){
     const timeZone = 3;
     for (let i = 0; i < notes.length; i++) {
 	    const curDate = new Date().getHours() + timeZone + ':' + new Date().getMinutes();
 	    if (notes[i]['time'] === curDate) {
-	      bot.sendMessage(notes[i]['uid'], 'Напоминаю, что вы должны: '+ notes[i]['text'] + ' сейчас.');
+	      await bot.sendMessage(notes[i]['uid'], 'Напоминаю, что вы должны: '+ notes[i]['text'] + ' сейчас.');
 	      notes.splice(i, 1);
 	    }
   }
@@ -154,7 +154,7 @@ setInterval(function(){
 /*----  /remind  ----*/
 
 /*----  message  ----*/
-bot.on('message', function (msg) {
+bot.on('message', async function (msg) {
 	const chatId = msg.chat.id; // Берем ID чата (не отправителя)
 	const path = 'img/';
 	let lstImg = [];
@@ -164,7 +164,7 @@ bot.on('message', function (msg) {
 	})
 
 	const photo = 'img/' + lstImg[Math.floor(Math.random() * (lstImg.length-1))];
-	bot.sendPhoto(chatId, photo, { caption: 'Лови котейку' });
+	await bot.sendPhoto(chatId, photo, { caption: 'Лови котейку' });
 
 });
 /*----  /message  ----*/
